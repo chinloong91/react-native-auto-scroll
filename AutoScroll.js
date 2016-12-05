@@ -42,14 +42,16 @@ export default class AutoScroll extends Component {
       // fix top blank if exsits
       // detection also has trouble on Android
       if (scrollY > contentHeight - scrollHeight) {
-        this.refs.scroller.scrollTo({ y: 0 })
+        // this.refs.scroller.scrollTo({ y: 0, animated: false })
+        this.scrollResponder.scrollResponderScrollTo({ y: contentHeight - scrollHeight, animated: false })
       }
       // fix bottom blank if exsits
       // else {
       //   this.scrollToBottom()
       // }
       else {
-        this.refs.scroller.scrollTo({ y: scrollY })
+        // this.refs.scroller.scrollTo({ y: scrollY, animated: false })
+        this.scrollResponder.scrollResponderScrollTo({ y: scrollY, animated: false })
       }
     }
   }
@@ -87,8 +89,13 @@ export default class AutoScroll extends Component {
       return
     }
     if (contentHeight > scrollHeight) {
-      this.refs.scroller.scrollTo({ y: contentHeight - scrollHeight })
+      this.scrollResponder.scrollResponderScrollTo({ y: contentHeight - scrollHeight, animated: false })
     }
+  }
+
+  scrollResponder() {
+    const scrollResponder = this.refs.scroller.getScrollResponder();
+    return (scrollResponder);
   }
 
   render () {
